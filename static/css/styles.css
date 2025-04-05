@@ -1,18 +1,121 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+:root {
+    --primary-color: #4361ee;
+    --primary-light: #4895ef;
+    --primary-dark: #3f37c9;
+    --secondary-color: #4cc9f0;
+    --accent-color: #560bad;
+    --text-color: #333;
+    --text-light: #6c757d;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+    --info-color: #2196F3;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.app-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem 0;
+    box-shadow: var(--shadow);
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+.logo {
+    height: 60px;
+    max-width: 100%;
+}
+
+.tagline {
+    text-align: center;
+    margin-bottom: 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* Custom Tabs */
+.custom-tabs {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.custom-tabs .nav-link {
+    color: var(--text-light);
+    border: none;
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.custom-tabs .nav-link:hover {
+    color: var(--primary-color);
+}
+
+.custom-tabs .nav-link.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+    background-color: transparent;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.card-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.25rem;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Camera Container */
 #cameraContainer {
     aspect-ratio: 4/3;
     background-color: #000;
     overflow: hidden;
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;
+    position: relative;
 }
 
-#canvas {
+#video, #canvas {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #cameraPlaceholder {
@@ -24,43 +127,271 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #000;
+    background-color: #1a1a1a;
+    color: white;
+    z-index: 10;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
 }
 
-.min-height-100 {
-    min-height: 100px;
+#loadingIndicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 20;
 }
 
+/* Translation Display */
+.translation-display {
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+/* Translation History */
+.translation-history {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+    background-color: var(--bg-color);
+    padding: 0.5rem;
+}
+
+.history-item {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    position: relative;
+    transition: var(--transition);
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.history-item .btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.history-item:hover .btn {
+    opacity: 1;
+}
+
+.history-item-high {
+    background-color: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid var(--success-color);
+}
+
+.history-item-medium {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid var(--warning-color);
+}
+
+.history-item-low {
+    background-color: rgba(244, 67, 54, 0.1);
+    border-left: 3px solid var(--danger-color);
+}
+
+.history-timestamp {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 0.25rem;
+}
+
+/* Phrase Buttons */
 .phrase-btn {
     text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0.5rem;
+    height: 38px;
+    transition: var(--transition);
+    border-color: var(--border-color);
 }
 
-.history-item {
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
+.phrase-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
-.history-item-high {
-    background-color: #d1e7dd;
-    border-left: 3px solid #198754;
+/* Form Controls */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    transition: var(--transition);
 }
 
-.history-item-medium {
-    background-color: #fff3cd;
-    border-left: 3px solid #ffc107;
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
 }
 
-.history-item-low {
-    background-color: #f8d7da;
-    border-left: 3px solid #dc3545;
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
-.history-timestamp {
-    font-size: 0.75rem;
-    color: #6c757d;
+/* Buttons */
+.btn {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Footer */
+.app-footer {
+    background-color: #f1f1f1;
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+.app-footer a {
+    color: var(--primary-color);
+}
+
+/* Modals */
+.modal-content {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .app-header {
+        padding: 1rem 0;
+    }
+    
+    .logo {
+        height: 40px;
+    }
+    
+    .translation-display {
+        min-height: 100px;
+        font-size: 1.25rem;
+        padding: 1rem;
+    }
+    
+    .translation-history {
+        max-height: 200px;
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Dark Mode */
+.dark-mode {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --text-light: #9e9e9e;
+    --border-color: #333;
+}
+
+.dark-mode .app-header {
+    background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+}
+
+.dark-mode .card {
+    background-color: var(--card-bg);
+}
+
+.dark-mode .translation-display,
+.dark-mode .translation-history {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .history-item-high {
+    background-color: rgba(76, 175, 80, 0.15);
+}
+
+.dark-mode .history-item-medium {
+    background-color: rgba(255, 193, 7, 0.15);
+}
+
+.dark-mode .history-item-low {
+    background-color: rgba(244, 67, 54, 0.15);
+}
+
+.dark-mode .app-footer {
+    background-color: #1a1a1a;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
 }
