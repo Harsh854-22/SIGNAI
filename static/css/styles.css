@@ -1,0 +1,66 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#cameraContainer {
+    aspect-ratio: 4/3;
+    background-color: #000;
+    overflow: hidden;
+    border-radius: 0.25rem;
+}
+
+#canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#cameraPlaceholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+}
+
+.min-height-100 {
+    min-height: 100px;
+}
+
+.phrase-btn {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+}
+
+.history-item {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.history-item-high {
+    background-color: #d1e7dd;
+    border-left: 3px solid #198754;
+}
+
+.history-item-medium {
+    background-color: #fff3cd;
+    border-left: 3px solid #ffc107;
+}
+
+.history-item-low {
+    background-color: #f8d7da;
+    border-left: 3px solid #dc3545;
+}
+
+.history-timestamp {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
