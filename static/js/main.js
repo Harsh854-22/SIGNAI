@@ -596,8 +596,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(function(error) {
                     console.error('Error accessing camera:', error);
-                    alert('Error accessing camera. Please check your permissions.');
                     loadingIndicator.classList.add('d-none');
+                    
+                    let errorMessage = 'Error accessing camera: ';
+                    if (error.name === 'NotAllowedError') {
+                        errorMessage += 'Camera access was denied. Please allow camera permissions in your browser settings.';
+                    } else if (error.name === 'NotFoundError') {
+                        errorMessage += 'No camera found. Please check if a camera is connected.';
+                    } else if (error.name === 'NotReadableError') {
+                        errorMessage += 'Camera is already in use by another application.';
+                    } else if (error.name === 'OverconstrainedError') {
+                        errorMessage += 'Requested camera configuration not available. Trying default settings...';
+                        // Try again with simpler constraints
+                        startCameraWithDefaultConstraints();
+                        return;
+                    } else {
+                        errorMessage += 'Please check your camera connection and permissions.';
+                    }
+                    
+                    // Show error in placeholder
+                    cameraPlaceholder.innerHTML = `
+                        <div class="text-center">
+                            <i class="fas fa-video-slash text-danger mb-2" style="font-size: 2rem;"></i>
+                            <p class="text-danger">${errorMessage}</p>
+                            <button class="btn btn-sm btn-primary mt-2" onclick="location.reload()">
+                                <i class="fas fa-sync-alt me-1"></i> Try Again
+                            </button>
+                        </div>
+                    `;
                 });
         } else {
             alert('Your browser does not support camera access.');
