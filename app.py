@@ -1,3 +1,4 @@
+import socket
 # Import the expanded phrases
 from asl_phrases import asl_phrases, phrase_complexity
 import os
@@ -730,5 +731,32 @@ def handle_get_phrases():
         'phrase_complexity': phrase_complexity
     })
 
+def find_available_port(start_port=5000, max_attempts=10):
+    """Find an available port starting from start_port"""
+    port = start_port
+    attempts = 0
+    while attempts < max_attempts:
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.bind(('0.0.0.0', port))
+            sock.close()
+            return port
+        except OSError:
+            port += 1
+            attempts += 1
+    raise RuntimeError(f"Could not find available port after {max_attempts} attempts")
+
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000, debug=True)
+    port = find_available_port()
+    print(f"Starting server on port {port}")
+    
+    try:
+        with app.app_context():
+            socketio.run(app, host='0.0.0.0', port=port, debug=True)
+    except Exception as e:
+        print(f"Server error: {e}")
+    finally:
+        # Clean up resources
+        hands.close()
+        face_mesh.close()
+        executor.shutdown(wait=False)
