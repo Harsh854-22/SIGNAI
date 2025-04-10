@@ -117,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Selected voice will be set after voices are loaded
             } catch (e) {
                 console.error('Error loading settings:', e);
-                // Continue with defaults
             }
         }
     }
@@ -155,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.body.appendChild(toast);
         
-        // Remove toast after 3 seconds
         setTimeout(() => {
             document.body.removeChild(toast);
         }, 3000);
@@ -191,22 +189,17 @@ document.addEventListener('DOMContentLoaded', function() {
         showFaceLandmarks = false;
         showFaceLandmarksToggle.checked = showFaceLandmarks;
         
-        // Reset voice to default
         voiceSelect.selectedIndex = 0;
         selectedVoice = voices[0];
         
-        // Save the reset settings
         saveSettings();
     }
     
     // Get available voices
     function loadVoices() {
         voices = synth.getVoices();
-        
-        // Clear existing options
         voiceSelect.innerHTML = '';
         
-        // Add voices to select
         voices.forEach((voice, i) => {
             const option = document.createElement('option');
             option.value = i;
@@ -214,24 +207,16 @@ document.addEventListener('DOMContentLoaded', function() {
             voiceSelect.appendChild(option);
         });
         
-        // Try to select a female English voice by default
         let defaultVoice = voices.findIndex(v => v.name.includes('Female') && v.lang.includes('en'));
-        if (defaultVoice === -1) {
-            defaultVoice = voices.findIndex(v => v.lang.includes('en'));
-        }
-        if (defaultVoice === -1) {
-            defaultVoice = 0;
-        }
+        if (defaultVoice === -1) defaultVoice = voices.findIndex(v => v.lang.includes('en'));
+        if (defaultVoice === -1) defaultVoice = 0;
         
-        // Check if we have a saved voice preference
         if (localStorage.getItem('signai-settings')) {
             try {
                 const settings = JSON.parse(localStorage.getItem('signai-settings'));
                 if (settings.selectedVoiceURI) {
                     const savedVoiceIndex = voices.findIndex(v => v.voiceURI === settings.selectedVoiceURI);
-                    if (savedVoiceIndex !== -1) {
-                        defaultVoice = savedVoiceIndex;
-                    }
+                    if (savedVoiceIndex !== -1) defaultVoice = savedVoiceIndex;
                 }
             } catch (e) {
                 console.error('Error loading voice setting:', e);
@@ -254,20 +239,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter(device => device.kind === 'videoinput');
             
-            // Clear existing options
             cameraSelect.innerHTML = '';
             
-            // Add cameras to select
             videoDevices.forEach((device, i) => {
                 const option = document.createElement('option');
                 option.value = device.deviceId;
                 option.textContent = device.label || `Camera ${i + 1}`;
                 cameraSelect.appendChild(option);
-                
                 availableCameras.push(device);
             });
             
-            // Select first camera by default
             if (videoDevices.length > 0) {
                 selectedCamera = videoDevices[0].deviceId;
             }
@@ -281,12 +262,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function speakText(text) {
         if (!textToSpeechEnabled || !text || text === lastTranslation) return;
         
-        // Stop any current speech
         synth.cancel();
-        
         const utterance = new SpeechSynthesisUtterance(text);
         
-        // Set selected voice
         if (selectedVoice) {
             utterance.voice = selectedVoice;
         }
@@ -308,26 +286,17 @@ document.addEventListener('DOMContentLoaded', function() {
         sessionId = data.session_id;
         console.log('Session ID:', sessionId);
         
-        // Store phrases data
-        if (data.phrases) {
-            aslPhrases = data.phrases;
-        }
+        if (data.phrases) aslPhrases = data.phrases;
+        if (data.phrase_complexity) phraseComplexity = data.phrase_complexity;
         
-        if (data.phrase_complexity) {
-            phraseComplexity = data.phrase_complexity;
-        }
-        
-        // Initialize phrase list
         initializePhraseList();
     });
     
     socket.on('processed_frame', (data) => {
         if (!isStreaming) return;
         
-        // Hide loading indicator if visible
         loadingIndicator.classList.add('d-none');
         
-        // Update the canvas with the processed frame
         const img = new Image();
         img.onload = () => {
             const ctx = canvas.getContext('2d');
@@ -335,24 +304,17 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         img.src = data.image;
         
-        // Update translation display if there's a translation
         if (data.translation) {
             translationDisplay.innerHTML = `<span class="translation-text">${data.translation}</span>`;
-            
-            // Speak the translation
             speakText(data.translation);
-            
-            // Update confidence indicator
             updateConfidenceIndicator(data.confidence);
             
-            // Add to translation history if it's new
             const lastTranslation = translationData.length > 0 ? translationData[translationData.length - 1].text : null;
             if (lastTranslation !== data.translation || data.confidence === 'high') {
                 addToTranslationHistory(data.translation, data.confidence);
             }
         }
         
-        // Show calibration issues if any
         if (data.calibration && !data.calibration.isGood) {
             calibrationAlert.classList.remove('d-none');
             calibrationIssues.innerHTML = data.calibration.issues.map(issue => `• ${issue}`).join('<br>');
@@ -367,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     socket.on('export_result', (data) => {
-        // Create a download link for the exported text
         const blob = new Blob([data.text], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -387,44 +348,25 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listeners
     toggleCameraBtn.addEventListener('click', toggleCamera);
-    viewPhrasesBtn.addEventListener('click', () => {
-        phrasesTab.click();
-    });
+    viewPhrasesBtn.addEventListener('click', () => phrasesTab.click());
     exportBtn.addEventListener('click', exportTranslations);
-    feedbackBtn.addEventListener('click', () => {
-        feedbackModal.show();
-    });
-    howToUseBtn.addEventListener('click', () => {
-        howToUseModal.show();
-    });
+    feedbackBtn.addEventListener('click', () => feedbackModal.show());
+    howToUseBtn.addEventListener('click', () => howToUseModal.show());
     
-    // Settings event listeners
     frameRateRange.addEventListener('input', () => {
         frameRateValue.textContent = frameRateRange.value;
         frameRate = parseInt(frameRateRange.value);
-        
-        // If camera is active, restart it with new frame rate
-        if (isStreaming) {
-            restartCamera();
-        }
+        if (isStreaming) restartCamera();
     });
     
     resolutionSelect.addEventListener('change', () => {
         selectedResolution = resolutionSelect.value;
-        
-        // If camera is active, restart it with new resolution
-        if (isStreaming) {
-            restartCamera();
-        }
+        if (isStreaming) restartCamera();
     });
     
     cameraSelect.addEventListener('change', () => {
         selectedCamera = cameraSelect.value;
-        
-        // If camera is active, restart it with new camera
-        if (isStreaming) {
-            restartCamera();
-        }
+        if (isStreaming) restartCamera();
     });
     
     voiceSelect.addEventListener('change', () => {
@@ -455,7 +397,6 @@ document.addEventListener('DOMContentLoaded', function() {
     resetSettingsBtn.addEventListener('click', resetSettings);
     saveSettingsBtn.addEventListener('click', saveSettings);
     
-    // Feedback modal events
     document.getElementById('positiveFeedback').addEventListener('click', () => {
         selectedFeedbackType = 'positive';
         document.getElementById('positiveFeedback').classList.add('btn-primary');
@@ -481,18 +422,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Show loading state
         const submitBtn = document.getElementById('submitFeedback');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Submitting...';
         submitBtn.disabled = true;
         
-        // Send feedback to server
         fetch('/submit_feedback', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 feedbackType: selectedFeedbackType,
                 email: email,
@@ -502,10 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Show success message
                 alert('Thank you for your feedback! It helps us improve SignAI.');
-                
-                // Reset form and close modal
                 selectedFeedbackType = null;
                 document.getElementById('feedbackEmail').value = '';
                 document.getElementById('feedbackText').value = '';
@@ -523,20 +457,15 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error submitting feedback. Please try again.');
         })
         .finally(() => {
-            // Reset button state
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         });
     });
     
-    // Speak phrase in modal
     document.getElementById('speakPhraseBtn').addEventListener('click', () => {
-        if (currentPhrase) {
-            speakText(currentPhrase);
-        }
+        if (currentPhrase) speakText(currentPhrase);
     });
     
-    // Phrase search
     phraseSearch.addEventListener('input', () => {
         const searchTerm = phraseSearch.value.toLowerCase();
         renderPhraseList(searchTerm);
@@ -545,92 +474,119 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     loadSettings();
     loadCameras();
-    
-    // Request phrases data from server
     socket.emit('get_phrases');
     
-    // Functions
+    // Camera functions
     function toggleCamera() {
-        if (isStreaming) {
-            stopCamera();
-        } else {
-            startCamera();
-        }
+        if (isStreaming) stopCamera();
+        else startCamera();
     }
     
-    function startCamera() {
-        // Show loading indicator
-        loadingIndicator.classList.remove('d-none');
-        
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            const resolution = resolutions[selectedResolution];
+    async function startCamera() {
+        try {
+            loadingIndicator.classList.remove('d-none');
+            cameraPlaceholder.style.display = 'none';
+            video.style.display = 'block';
+            canvas.style.display = 'block';
             
             const constraints = {
                 video: {
                     deviceId: selectedCamera ? { exact: selectedCamera } : undefined,
-                    width: { ideal: resolution.width },
-                    height: { ideal: resolution.height },
-                    facingMode: "user"
+                    width: { ideal: resolutions[selectedResolution].width },
+                    height: { ideal: resolutions[selectedResolution].height },
+                    facingMode: "user",
+                    frameRate: { ideal: frameRate }
                 }
             };
+
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            video.srcObject = stream;
             
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(function(stream) {
-                    video.srcObject = stream;
-                    video.play();
-                    
-                    // Set up canvas dimensions once video metadata is loaded
-                    video.addEventListener('loadedmetadata', function() {
-                        canvas.width = video.videoWidth;
-                        canvas.height = video.videoHeight;
-                        
-                        isStreaming = true;
-                        cameraPlaceholder.style.display = 'none';
-                        toggleCameraBtn.innerHTML = '<i class="fas fa-video-slash me-1"></i> Stop Camera';
-                        toggleCameraBtn.classList.remove('btn-primary');
-                        toggleCameraBtn.classList.add('btn-danger');
-                        
-                        // Start sending frames to the server at specified frame rate
-                        frameInterval = setInterval(sendFrame, 1000 / frameRate);
-                    });
-                })
-                .catch(function(error) {
-                    console.error('Error accessing camera:', error);
-                    loadingIndicator.classList.add('d-none');
-                    
-                    let errorMessage = 'Error accessing camera: ';
-                    if (error.name === 'NotAllowedError') {
-                        errorMessage += 'Camera access was denied. Please allow camera permissions in your browser settings.';
-                    } else if (error.name === 'NotFoundError') {
-                        errorMessage += 'No camera found. Please check if a camera is connected.';
-                    } else if (error.name === 'NotReadableError') {
-                        errorMessage += 'Camera is already in use by another application.';
-                    } else if (error.name === 'OverconstrainedError') {
-                        errorMessage += 'Requested camera configuration not available. Trying default settings...';
-                        // Try again with simpler constraints
-                        startCameraWithDefaultConstraints();
-                        return;
-                    } else {
-                        errorMessage += 'Please check your camera connection and permissions.';
-                    }
-                    
-                    // Show error in placeholder
-                    cameraPlaceholder.innerHTML = `
-                        <div class="text-center">
-                            <i class="fas fa-video-slash text-danger mb-2" style="font-size: 2rem;"></i>
-                            <p class="text-danger">${errorMessage}</p>
-                            <button class="btn btn-sm btn-primary mt-2" onclick="location.reload()">
-                                <i class="fas fa-sync-alt me-1"></i> Try Again
-                            </button>
-                        </div>
-                    `;
-                });
-        } else {
-            alert('Your browser does not support camera access.');
+            await new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    resolve();
+                };
+            });
+
+            isStreaming = true;
+            toggleCameraBtn.innerHTML = '<i class="fas fa-video-slash me-1"></i> Stop Camera';
+            toggleCameraBtn.classList.replace('btn-primary', 'btn-danger');
+            
+            frameInterval = setInterval(sendFrame, 1000 / frameRate);
             loadingIndicator.classList.add('d-none');
+            
+        } catch (error) {
+            console.error('Camera Error:', error);
+            loadingIndicator.classList.add('d-none');
+            
+            cameraPlaceholder.innerHTML = `
+                <div class="alert alert-warning m-2">
+                    <h4>Camera Error</h4>
+                    <p>${getUserFriendlyError(error)}</p>
+                    <div class="d-flex gap-2 mt-2">
+                        <button class="btn btn-sm btn-primary" onclick="location.reload()">
+                            <i class="fas fa-sync-alt me-1"></i> Reload
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="startMockCamera()">
+                            <i class="fas fa-eye me-1"></i> Try Mock Camera
+                        </button>
+                    </div>
+                </div>
+            `;
+            cameraPlaceholder.style.display = 'flex';
         }
     }
-    
+
+    function getUserFriendlyError(error) {
+        switch(error.name) {
+            case 'NotAllowedError': return 'Please allow camera permissions in your browser settings.';
+            case 'NotFoundError': return 'No camera device found.';
+            case 'NotReadableError': return 'Camera is already in use by another application.';
+            default: return 'Could not access camera. Please try again.';
+        }
+    }
+
+    function startMockCamera() {
+        isStreaming = true;
+        cameraPlaceholder.style.display = 'none';
+        video.style.display = 'none';
+        canvas.style.display = 'block';
+        
+        canvas.width = 640;
+        canvas.height = 480;
+        
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#333';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#fff';
+        ctx.font = '20px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Mock Camera Feed', canvas.width/2, canvas.height/2);
+        ctx.font = '16px Arial';
+        ctx.fillText('(Camera access not available)', canvas.width/2, canvas.height/2 + 30);
+        
+        ctx.fillStyle = '#ffcc99';
+        ctx.beginPath();
+        ctx.arc(canvas.width/2, canvas.height/3, 50, 0, Math.PI * 2);
+        ctx.fill();
+        
+        toggleCameraBtn.innerHTML = '<i class="fas fa-video-slash me-1"></i> Stop Camera';
+        toggleCameraBtn.classList.replace('btn-primary', 'btn-danger');
+        
+        frameInterval = setInterval(() => {
+            const mockTranslations = ['Hello', 'Thank you', 'Help', 'Yes', 'No'];
+            const randomTranslation = mockTranslations[Math.floor(Math.random() * mockTranslations.length)];
+            
+            if (Math.random() > 0.7) {
+                translationDisplay.textContent = randomTranslation;
+                addToTranslationHistory(randomTranslation, Math.random() > 0.5 ? 'high' : 'medium');
+            }
+        }, 1000);
+    }
+
     function stopCamera() {
         if (frameInterval) {
             clearInterval(frameInterval);
@@ -645,15 +601,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         isStreaming = false;
         cameraPlaceholder.style.display = 'flex';
+        video.style.display = 'none';
+        canvas.style.display = 'none';
         toggleCameraBtn.innerHTML = '<i class="fas fa-video me-1"></i> Start Camera';
         toggleCameraBtn.classList.remove('btn-danger');
         toggleCameraBtn.classList.add('btn-primary');
         
-        // Clear the canvas
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // Hide alerts
         calibrationAlert.classList.add('d-none');
         loadingIndicator.classList.add('d-none');
     }
@@ -661,23 +617,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function restartCamera() {
         if (isStreaming) {
             stopCamera();
-            setTimeout(() => {
-                startCamera();
-            }, 500);
+            setTimeout(() => startCamera(), 500);
         }
     }
 
     function sendFrame() {
         if (!isStreaming) return;
         
-        // Draw the current video frame to the canvas
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        // Get the canvas data as a base64 image with reduced quality for faster transmission
         const imageData = canvas.toDataURL('image/jpeg', 0.5);
         
-        // Send the image to the server
         socket.emit('frame', { 
             image: imageData,
             showHandLandmarks: showHandLandmarks,
@@ -702,12 +653,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function addToTranslationHistory(text, confidence) {
         const timestamp = new Date().getTime();
-        translationData.push({
-            text,
-            timestamp,
-            confidence
-        });
-        
+        translationData.push({ text, timestamp, confidence });
         renderTranslationHistory();
     }
     
@@ -732,19 +678,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="history-timestamp">${time}</div>
             `;
             
-            // Add speak button
             const speakButton = document.createElement('button');
             speakButton.className = 'btn btn-sm btn-outline-primary';
             speakButton.innerHTML = '<i class="fas fa-volume-up"></i>';
-            speakButton.addEventListener('click', () => {
-                speakText(entry.text);
-            });
+            speakButton.addEventListener('click', () => speakText(entry.text));
             historyItem.appendChild(speakButton);
             
             translationHistory.appendChild(historyItem);
         });
         
-        // Scroll to bottom
         translationHistory.scrollTop = translationHistory.scrollHeight;
     }
     
@@ -757,20 +699,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function renderPhraseList(searchTerm = '') {
-        // Clear containers
         basicPhrasesContainer.innerHTML = '';
         intermediatePhrasesContainer.innerHTML = '';
         advancedPhrasesContainer.innerHTML = '';
         
-        // Filter and render phrases
-        let basicCount = 0;
-        let intermediateCount = 0;
-        let advancedCount = 0;
+        let basicCount = 0, intermediateCount = 0, advancedCount = 0;
         
         Object.entries(aslPhrases).forEach(([key, phrase]) => {
-            if (searchTerm && !phrase.toLowerCase().includes(searchTerm)) {
-                return;
-            }
+            if (searchTerm && !phrase.toLowerCase().includes(searchTerm)) return;
             
             const complexity = phraseComplexity[key] || 'basic';
             const phraseButton = document.createElement('div');
@@ -800,7 +736,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Update counts in tabs
         document.querySelector('#basic-tab .badge').textContent = basicCount;
         document.querySelector('#intermediate-tab .badge').textContent = intermediateCount;
         document.querySelector('#advanced-tab .badge').textContent = advancedCount;
@@ -813,7 +748,6 @@ document.addEventListener('DOMContentLoaded', function() {
         phraseDetailText.textContent = `To sign "${phrase}", make the "${key.replace(/_/g, ' ')}" gesture.`;
         currentPhrase = phrase;
         
-        // Set complexity badge
         phraseComplexity.textContent = complexity.charAt(0).toUpperCase() + complexity.slice(1);
         phraseComplexity.className = 'badge';
         
