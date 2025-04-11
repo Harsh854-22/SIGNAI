@@ -1,0 +1,84 @@
+/* ========== BACKGROUND IMAGE CONTAINER ========== */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .asl-sign {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+  }
+  
+  /* 🎞️ Animation Variants */
+  @keyframes floatLeft {
+    from { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.9; }
+    to   { transform: translateX(-150px) translateY(60px) rotate(-20deg); opacity: 0.5; }
+  }
+  
+  @keyframes floatRight {
+    from { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.9; }
+    to   { transform: translateX(150px) translateY(-60px) rotate(20deg); opacity: 0.5; }
+  }
+  
+  @keyframes floatUpDown {
+    from { transform: translateY(0) scale(1); }
+    50%  { transform: translateY(-30px) scale(1.1); }
+    to   { transform: translateY(0) scale(1); }
+  }
+
+  @keyframes driftDiagonal {
+    from { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
+    to   { transform: translate(120px, 120px) rotate(25deg); opacity: 0.5; }
+  }
+  
+  @keyframes swirlFloat {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    25%  { transform: translate(50px, -30px) rotate(10deg); }
+    50%  { transform: translate(100px, 0px) rotate(20deg); }
+    75%  { transform: translate(50px, 30px) rotate(10deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+  }
+  
+  @keyframes gentleZoom {
+    0%   { transform: scale(1) rotate(0deg); }
+    50%  { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+  }
+  
+  
+  /* 🧤 ASL Letters A–L */
+  .a { top: 10%; left: 5%; animation: floatLeft 12s infinite alternate ease-in-out; background-image: url('/static/images/asl/A.png'); }
+  .b { top: 30%; right: 10%; animation: floatRight 14s infinite alternate ease-in-out; background-image: url('/static/images/asl/B.png'); }
+  .c { bottom: 15%; left: 15%; animation: floatUpDown 10s infinite ease-in-out; background-image: url('/static/images/asl/C.png'); }
+  .d { top: 50%; right: 25%; animation: floatLeft 11s infinite alternate ease-in-out; background-image: url('/static/images/asl/D.png'); }
+  .e { bottom: 10%; right: 5%; animation: floatRight 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/E.png'); }
+  
+  .f { top: 20%; left: 20%; animation: floatUpDown 12s infinite ease-in-out; background-image: url('/static/images/asl/F.png'); }
+  .g { top: 65%; left: 8%; animation: floatLeft 16s infinite alternate ease-in-out; background-image: url('/static/images/asl/G.png'); }
+  .h { top: 35%; right: 20%; animation: floatRight 10s infinite alternate ease-in-out; background-image: url('/static/images/asl/H.png'); }
+  .i { bottom: 20%; left: 35%; animation: floatUpDown 11s infinite ease-in-out; background-image: url('/static/images/asl/I.png'); }
+  .m { top: 5%; right: 15%; animation: floatLeft 14s infinite alternate ease-in-out; background-image: url('/static/images/asl/M.png'); }
+  .n { bottom: 5%; right: 25%; animation: floatRight 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/N.png'); }
+  .o { top: 45%; left: 50%; animation: floatUpDown 12s infinite ease-in-out; background-image: url('/static/images/asl/O.png'); }
+  .p { top: 15%; left: 70%; animation: driftDiagonal 18s infinite alternate ease-in-out; background-image: url('/static/images/asl/P.png'); }
+.q { bottom: 30%; right: 10%; animation: swirlFloat 20s infinite ease-in-out; background-image: url('/static/images/asl/Q.png'); }
+.r { top: 60%; left: 10%; animation: gentleZoom 16s infinite ease-in-out; background-image: url('/static/images/asl/R.png'); }
+.s { top: 25%; right: 15%; animation: floatLeft 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/S.png'); }
+.t { bottom: 10%; left: 60%; animation: floatRight 15s infinite alternate ease-in-out; background-image: url('/static/images/asl/T.png'); }
+
+.u { top: 70%; right: 20%; animation: floatUpDown 11s infinite ease-in-out; background-image: url('/static/images/asl/U.png'); }
+.v { top: 5%; left: 40%; animation: driftDiagonal 14s infinite alternate ease-in-out; background-image: url('/static/images/asl/V.png'); }
+.w { bottom: 40%; right: 30%; animation: swirlFloat 18s infinite ease-in-out; background-image: url('/static/images/asl/W.png'); }
+.x { top: 15%; left: 25%; animation: gentleZoom 12s infinite ease-in-out; background-image: url('/static/images/asl/X.png'); }
+.y { bottom: 25%; left: 50%; animation: floatLeft 17s infinite alternate ease-in-out; background-image: url('/static/images/asl/Y.png'); }
+.z { top: 30%; right: 35%; animation: floatRight 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/Z.png'); }

@@ -1,0 +1,412 @@
+/* ASL Translator Responsive Design
+ * This file contains responsive styles for the ASL Translator application
+ * Breakpoints: 768px (tablet) and 400px (mobile)
+ */
+
+/* Base responsive container */
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  /* Responsive breakpoints */
+  @media (max-width: 768px) {
+    /* Header adjustments */
+    .app-header .logo {
+      height: 40px;
+    }
+  
+    .app-header .tagline {
+      font-size: 16px !important;
+    }
+  
+    /* Main layout - vertical reorganization */
+    .row.mt-4.g-4 {
+      flex-direction: column;
+    }
+  
+    .col-lg-8,
+    .col-lg-4 {
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+  
+    /* Camera and translation panels */
+    #cameraContainer {
+      height: 50vh;
+      max-height: 400px;
+    }
+  
+    .translation-display {
+      min-height: 80px;
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+  
+    /* Button adjustments for touch */
+    .btn {
+      padding: 0.6rem 1rem;
+      min-height: 48px;
+      min-width: 48px;
+      margin-bottom: 0.5rem;
+    }
+  
+    /* Phrase library - single column */
+    #basicPhrases .col-md-4,
+    #intermediatePhrases .col-md-4,
+    #advancedPhrases .col-md-4 {
+      width: 100%;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    /* Navigation tabs scrollable */
+    .nav-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 5px;
+    }
+  
+    .nav-tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+  
+    .nav-tabs::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+  
+    .nav-tabs .nav-item {
+      white-space: nowrap;
+    }
+  
+    /* Adjust card spacing */
+    .card {
+      margin-bottom: 1rem;
+    }
+  
+    /* Adjust form controls for touch */
+    .form-control,
+    .form-select {
+      height: 48px;
+      font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+  
+    /* Adjust modal for mobile */
+    .modal-dialog {
+      margin: 0.5rem;
+    }
+  
+    .modal-content {
+      width: 100%;
+    }
+  }
+  
+  /* Extra small devices */
+  @media (max-width: 400px) {
+    /* Header further reduction */
+    .app-header .logo {
+      height: 35px;
+    }
+  
+    .app-header .tagline {
+      font-size: 14px !important;
+    }
+  
+    /* Button text hiding - show only icons */
+    .btn i {
+      margin-right: 0 !important;
+    }
+  
+    .btn span.btn-text {
+      display: none;
+    }
+  
+    /* Simplified controls */
+    .card-header {
+      padding: 0.5rem;
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+  
+    .card-header h5 {
+      margin-bottom: 0.5rem;
+    }
+  
+    .card-header .d-flex {
+      width: 100%;
+      justify-content: space-between !important;
+    }
+  
+    /* Smaller font sizes */
+    .translation-display {
+      font-size: 1rem;
+    }
+  
+    /* Adjust form spacing */
+    .form-group {
+      margin-bottom: 0.75rem;
+    }
+  
+    /* Adjust modal padding */
+    .modal-body {
+      padding: 1rem;
+    }
+  
+    /* Adjust confidence indicator */
+    #confidenceIndicator .badge {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+  
+  /* Accessibility improvements */
+  @media (any-pointer: coarse) {
+    /* Larger touch targets for touch devices */
+    .btn,
+    .form-control,
+    .form-select,
+    .nav-link,
+    .phrase-btn {
+      min-height: 48px;
+      min-width: 48px;
+    }
+  
+    /* Increase spacing between interactive elements */
+    .nav-item,
+    .form-check,
+    .btn-group > .btn {
+      margin-right: 8px;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    .app-header,
+    .nav-tabs,
+    .btn,
+    #cameraContainer,
+    .app-footer {
+      display: none !important;
+    }
+  
+    .translation-history {
+      max-height: none;
+      overflow: visible;
+    }
+  
+    .card {
+      border: none !important;
+      box-shadow: none !important;
+    }
+  
+    .card-header {
+      border-bottom: 1px solid #000;
+    }
+  }
+
+  
+  /* Additional styles for mobile optimization */
+
+/* Icon-only mode for small screens */
+.icon-only-mode .btn-text {
+    display: none;
+  }
+  
+  .icon-only-mode .btn i {
+    margin-right: 0 !important;
+  }
+  
+  /* Improved touch targets */
+  @media (max-width: 768px) {
+    /* Ensure all interactive elements have sufficient touch target size */
+    .btn,
+    .nav-link,
+    .form-check-input,
+    .form-control,
+    .form-select {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  
+    /* Improve spacing between elements */
+    .card-body {
+      padding: 1rem;
+    }
+  
+    /* Adjust form controls for better mobile experience */
+    .form-label {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+  
+    /* Ensure text is readable without zooming */
+    body {
+      font-size: 16px;
+    }
+  
+    /* Improve modal usability on mobile */
+    .modal-dialog {
+      margin: 0.5rem;
+    }
+  
+    /* Ensure buttons have sufficient spacing */
+    .btn + .btn {
+      margin-left: 0.5rem;
+    }
+  
+    /* Improve form layout on mobile */
+    .row > [class*="col-"] {
+      margin-bottom: 1rem;
+    }
+  
+    /* Ensure translation display is visible */
+    .translation-display {
+      min-height: 80px;
+      font-size: 1.2rem;
+    }
+  
+    /* Ensure history items are easy to tap */
+    .history-item {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+  
+    /* Ensure camera container maintains aspect ratio */
+    #cameraContainer {
+      aspect-ratio: 4 / 3;
+    }
+  
+    /* Ensure navigation tabs are scrollable */
+    .nav-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  
+    /* Ensure phrase buttons are easy to tap */
+    .phrase-btn {
+      height: auto;
+      min-height: 44px;
+      padding: 0.75rem;
+      white-space: normal;
+      text-align: center;
+    }
+  }
+  
+  /* Specific adjustments for very small screens */
+  @media (max-width: 400px) {
+    /* Further reduce padding */
+    .card-body {
+      padding: 0.75rem;
+    }
+  
+    /* Stack header elements */
+    .card-header {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+  
+    .card-header h5 {
+      margin-bottom: 0.5rem;
+    }
+  
+    .card-header .d-flex {
+      width: 100%;
+    }
+  
+    /* Reduce font sizes slightly */
+    h5 {
+      font-size: 1.1rem;
+    }
+  
+    /* Ensure buttons fit */
+    .btn {
+      padding: 0.5rem;
+    }
+  
+    /* Ensure modals are usable */
+    .modal-body {
+      padding: 0.75rem;
+    }
+  
+    /* Adjust form controls */
+    .form-control,
+    .form-select {
+      font-size: 16px; /* Prevents iOS zoom */
+    }
+  }
+  
+  /* Orientation-specific adjustments */
+  @media (orientation: landscape) and (max-width: 768px) {
+    /* Adjust layout for landscape orientation on mobile */
+    .row.mt-4.g-4 {
+      flex-direction: row !important;
+    }
+  
+    .col-lg-8 {
+      width: 60%;
+    }
+  
+    .col-lg-4 {
+      width: 40%;
+    }
+  
+    /* Adjust camera container height */
+    #cameraContainer {
+      height: 40vh;
+    }
+  
+    /* Reduce vertical spacing */
+    .mb-3 {
+      margin-bottom: 0.5rem !important;
+    }
+  
+    /* Adjust translation display */
+    .translation-display {
+      min-height: 60px;
+    }
+  
+    /* Adjust translation history */
+    .translation-history {
+      max-height: 120px;
+    }
+  }
+  
+  /* High-contrast mode for accessibility */
+  @media (prefers-contrast: more) {
+    :root {
+      --primary-color: #0000ee;
+      --primary-dark: #0000aa;
+      --text-color: #000000;
+      --bg-color: #ffffff;
+      --border-color: #000000;
+    }
+  
+    .btn,
+    .card,
+    .form-control,
+    .form-select {
+      border-width: 2px;
+    }
+  
+    .text-muted {
+      color: #555555 !important;
+    }
+  }
+  
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  
