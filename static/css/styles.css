@@ -35,7 +35,8 @@ body {
 
 /* Header Styles */
 .app-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background-image: url(/static/images/banner.svg);
+    /* background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); */
     color: white;
     padding: 1.5rem 0;
     box-shadow: var(--shadow);
