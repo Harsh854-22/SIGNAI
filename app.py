@@ -528,7 +528,7 @@ def process_frame(frame, session_id, show_hand_landmarks=True, show_face_landmar
     calibration = check_camera_calibration(frame)
     
     # Resize back to original size for display
-    annotated_frame = cv2.resize(annotated_frame, (640, 480))
+    annotated_frame = cv2.resize(annotated_frame, (320, 240))
     
     return annotated_frame, gesture, confidence, nod_detected, calibration
 
