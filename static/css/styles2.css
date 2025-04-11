@@ -42,7 +42,7 @@ body::before {
 
 /* Enhanced Header with Glass Morphism */
 .app-header {
-    background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9));
+    /* background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9)); */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
@@ -619,7 +619,7 @@ body::after {
         transform: none;
         box-shadow: none;
     }
-=======
+}
 :root {
     --primary-color: #4361ee;
     --primary-light: #4895ef;
@@ -664,7 +664,9 @@ body::before {
 
 /* Enhanced Header with Glass Morphism */
 .app-header {
-    background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9));
+    background-image: url(/static/images/banner.svg);
+
+    /* background: linear-gradient(135deg, rgba(67, 97, 238, 0.9), rgba(76, 201, 240, 0.9)); */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--glass-border);
@@ -1241,3 +1243,4 @@ body::after {
         transform: none;
         box-shadow: none;
     }
+}

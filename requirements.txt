@@ -7,3 +7,5 @@ python-engineio==4.2.1
 python-socketio==5.4.0
 
 # we can add eventlet and sounddevice
+
+pip install opencv-python numpy python-engineio python-socketio sounddevice
