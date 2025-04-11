@@ -97,11 +97,18 @@
                                             <i class="fas fa-sign-language fa-4x mb-3"></i>
                                             <p>Click "Start Camera" to begin ASL translation</p>
                                         </div>
-                                        <div id="loadingIndicator" class="d-none">
-                                            <div class="spinner-border text-light" role="status">
-                                                <span class="visually-hidden">Loading...</span>
+                                            <div id="loadingIndicator" class="d-none">
+                                                <div class="spinner-border text-light" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div id="cameraStatus" class="position-absolute bottom-0 start-0 m-2">
+                                                <span class="badge bg-secondary">Camera Off</span>
+                                            </div>
+                                            <div id="performanceInfo" class="position-absolute top-0 end-0 m-2 small text-white">
+                                                <span id="currentFPS">0</span> FPS | 
+                                                <span id="currentResolution">640×480</span>
+                                            </div>
                                     </div>
                                     <div id="calibrationAlert" class="alert alert-warning m-3 d-none" role="alert">
                                         <i class="fas fa-exclamation-triangle me-2"></i>

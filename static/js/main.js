@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // State variables
     let isStreaming = false;
     let sessionId = null;
+    let frameCount = 0;
+    let lastFpsUpdate = 0;
+    let currentFps = 0;
     let translationData = [];
     let selectedFeedbackType = null;
     let aslPhrases = {};
@@ -489,6 +492,15 @@ document.addEventListener('DOMContentLoaded', function() {
             video.style.display = 'block';
             canvas.style.display = 'block';
             
+            // Update camera status
+            document.getElementById('cameraStatus').innerHTML = '<span class="badge bg-success">Camera Active</span>';
+            document.getElementById('currentResolution').textContent = 
+                `${resolutions[selectedResolution].width}×${resolutions[selectedResolution].height}`;
+            
+            // Reset frame counter
+            frameCount = 0;
+            lastFpsUpdate = Date.now();
+            
             const constraints = {
                 video: {
                     deviceId: selectedCamera ? { exact: selectedCamera } : undefined,
@@ -593,6 +605,9 @@ document.addEventListener('DOMContentLoaded', function() {
             frameInterval = null;
         }
         
+        // Update camera status
+        document.getElementById('cameraStatus').innerHTML = '<span class="badge bg-secondary">Camera Off</span>';
+        
         if (video.srcObject) {
             const tracks = video.srcObject.getTracks();
             tracks.forEach(track => track.stop());
@@ -623,6 +638,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function sendFrame() {
         if (!isStreaming) return;
+        
+        // Update frame counter
+        frameCount++;
+        const now = Date.now();
+        if (now - lastFpsUpdate >= 1000) {
+            currentFps = Math.round((frameCount * 1000) / (now - lastFpsUpdate));
+            document.getElementById('currentFPS').textContent = currentFps;
+            frameCount = 0;
+            lastFpsUpdate = now;
+        }
         
         const ctx = canvas.getContext('2d');
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
