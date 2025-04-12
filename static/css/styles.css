@@ -104,7 +104,7 @@ body {
 /* Camera Container */
 #cameraContainer {
     aspect-ratio: 4/3;
-    background-color: #000;
+    background-color: black;
     overflow: hidden;
     border-radius: 0.5rem;
     position: relative;
@@ -133,14 +133,14 @@ body {
 
 #cameraPlaceholder {
     position: absolute;
-    top: 0;
+    top: 35%;
     left: 0;
     width: 100%;
     height: 100%;
     display: block !important;
     align-items: center;
     justify-content: center;
-    background-color: #1a1a1a;
+    background-color: black;
     color: white;
     z-index: 0;
     flex-direction: column;
@@ -436,13 +436,21 @@ body {
 
 /* Footer */
 .app-footer {
-    background-color: #f1f1f1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    background-image: url(/static/images/banner.svg);
+    /* background-color: #f1f1f1; */
     padding: 1.5rem 0;
     margin-top: auto;
 }
 
 .app-footer a {
-    color: var(--primary-color);
+    font-weight: bold;
+    color: white;
+    /* color: var(--primary-color); */
 }
 
 /* Modals */

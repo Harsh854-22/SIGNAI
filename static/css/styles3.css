@@ -70,7 +70,7 @@
   .m { top: 5%; right: 15%; animation: floatLeft 14s infinite alternate ease-in-out; background-image: url('/static/images/asl/M.png'); }
   .n { bottom: 5%; right: 25%; animation: floatRight 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/N.png'); }
   .o { top: 45%; left: 50%; animation: floatUpDown 12s infinite ease-in-out; background-image: url('/static/images/asl/O.png'); }
-  .p { top: 15%; left: 70%; animation: driftDiagonal 18s infinite alternate ease-in-out; background-image: url('/static/images/asl/P.png'); }
+  .p { bottom: 10%; right: 20%; animation: driftDiagonal 18s infinite alternate ease-in-out; background-image: url('/static/images/asl/P.png'); }
 .q { bottom: 30%; right: 10%; animation: swirlFloat 20s infinite ease-in-out; background-image: url('/static/images/asl/Q.png'); }
 .r { top: 60%; left: 10%; animation: gentleZoom 16s infinite ease-in-out; background-image: url('/static/images/asl/R.png'); }
 .s { top: 25%; right: 15%; animation: floatLeft 13s infinite alternate ease-in-out; background-image: url('/static/images/asl/S.png'); }
