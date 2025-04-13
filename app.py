@@ -1,3 +1,5 @@
+import eventlet
+eventlet.monkey_patch()
 import socket
 # Import the expanded phrases
 from asl_phrases import asl_phrases, phrase_complexity
@@ -14,10 +16,6 @@ import threading
 import time
 import queue
 import concurrent.futures
-import eventlet
-
-# Use eventlet for better WebSocket performance
-eventlet.monkey_patch()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
