@@ -6,3 +6,4 @@ numpy==1.21.3
 python-engineio==4.2.1
 python-socketio==5.4.0
 gunicorn
+Werkzeug==2.0.3
