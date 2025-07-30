@@ -146,6 +146,8 @@ We welcome **developers, designers, and ASL experts** to contribute!
 *Interactive ASL dictionary for learning*  
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/1bdd9b05-0007-46c5-b1f9-0929fdba59f5" />
+<img width="675" height="274" alt="image" src="https://github.com/user-attachments/assets/3944fe9e-9f8f-4d41-8567-29ccd6c9d672" />
+
 
 *Customizable accessibility options*  
 
