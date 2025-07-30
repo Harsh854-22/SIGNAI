@@ -148,6 +148,38 @@ We welcome **developers, designers, and ASL experts** to contribute!
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/1bdd9b05-0007-46c5-b1f9-0929fdba59f5" />
 <img width="675" height="274" alt="image" src="https://github.com/user-attachments/assets/3944fe9e-9f8f-4d41-8567-29ccd6c9d672" />
 
+Here is the comprehensive list of libraries used in the application:
+
+**Backend (Python) Libraries:**
+1. `eventlet` - For asynchronous networking
+2. `socket` - Low-level networking interface
+3. `cv2` (OpenCV) - Computer vision processing
+4. `numpy` - Numerical operations and array handling
+5. `base64` - Encoding/decoding image data
+6. `json` - Data serialization
+7. `logging` - Application logging
+8. `Flask` - Web application framework
+9. `Flask-SocketIO` - WebSocket communication
+10. `mediapipe` - Hand and face landmark detection
+11. `threading` - Concurrent execution
+12. `queue` - Inter-thread communication
+13. `concurrent.futures` - Thread pooling
+
+**Frontend (JavaScript) Libraries:**
+1. `Socket.IO` - Real-time client-server communication
+2. `Bootstrap` - UI components and styling
+3. `Font Awesome` - Icons
+4. `MediaPipe` (via backend processing) - Pose detection
+5. `Web Speech API` (SpeechSynthesis) - Text-to-speech functionality
+
+**Key Framework Integrations:**
+- Flask application server
+- Socket.IO for bidirectional communication
+- MediaPipe for gesture recognition
+- WebRTC for camera access
+- Browser-native APIs (Canvas, Web Speech)
+
+The application uses a combination of Python backend libraries for computer vision and real-time communication, along with frontend JavaScript libraries for UI components and browser interactions. The MediaPipe library is central to the sign language recognition functionality, while Flask and Socket.IO handle the web application and real-time data transfer.
 
 *Customizable accessibility options*  
 
