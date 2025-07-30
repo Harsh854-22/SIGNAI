@@ -35,8 +35,8 @@
 📤 **Export Data** – Share translations via text or audio files. 
 
 ### **5. Export Functionality**
-📂 **Excel (XLSX) Export** – Save translations with timestamp, ASL video (if saved), translated text, and TTS audio (if generated).
-📄 **PDF Export** – Generates formatted transcripts, organized by date/time with optional ASL gesture thumbnails.
+📂 **Excel (XLSX) Export** – Save translations with timestamp, ASL video (if saved), translated text, and TTS audio (if generated). <br>
+📄 **PDF Export** – Generates formatted transcripts, organized by date/time with optional ASL gesture thumbnails. <br>
 📥 **Easy Access** – Go to "Translation History", select entries, and export as Excel or PDF for analysis, reports, or sharing.
 
 
