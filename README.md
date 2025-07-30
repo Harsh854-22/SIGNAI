@@ -114,21 +114,12 @@ We welcome **developers, designers, and ASL experts** to contribute!
 
 1. **Fork the repo** and create a new branch.  
 2. **Make improvements** (code, UI, or ASL dataset).  
-3. **Submit a Pull Request** with a clear description.  
-
-📜 **See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.**  
+3. **Submit a Pull Request** with a clear description.   
 
 ---
 
 ## **📜 License**  
 📄 **MIT License** – Free for personal and commercial use.  
-
----
-
-## **📞 Contact & Support**  
-💬 **Email:** support@signalai.tech  
-🐦 **Twitter:** [@SignalAI_Official](https://twitter.com/SignalAI_Official)  
-💡 **Feedback & Feature Requests:** Open a GitHub Issue  
 
 ---
 
