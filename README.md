@@ -48,12 +48,11 @@
 
 | **Category**       | **Technologies Used** |
 |-------------------|----------------------|
-| **AI Model**      | MediaPipe, TensorFlow (ASL recognition) |
+| **AI Model**      | MediaPipe, OpenCV (ASL recognition) |
 | **Frontend**      | React.js (TypeScript) |
 | **Backend**       | Python (FastAPI/Flask) |
 | **Text-to-Speech**| Web Speech API / Google TTS |
 | **Database**      | MongoDB (for translation logs) |
-| **Deployment**    | Docker, AWS/GCP (optional) |
 
 ---
 
