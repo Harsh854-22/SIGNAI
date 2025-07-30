@@ -32,7 +32,27 @@
 
 ### **4. Translation History & Export**  
 📜 **Session Logs** – Save and review past translations.  
-📤 **Export Data** – Share translations via text or audio files.  
+📤 **Export Data** – Share translations via text or audio files. 
+
+###📂 **5. Export Functionality**
+1. Excel (XLSX) Export
+Columns: Timestamp, ASL Video Clip (if saved), Translated Text, TTS Audio (if generated).
+
+Usage: Ideal for data analysis, research, or educational tracking.
+
+2. PDF Export
+Formatted Transcripts: Organized by date/time with optional ASL gesture thumbnails.
+
+Usage: Great for official records, medical reports, or sharing with non-tech users.
+
+How to Export:
+Go to "Translation History".
+
+Select a conversation or multiple entries.
+
+Click "Export" → Choose Excel or PDF.
+
+Download or share directly!
 
 ---
 
