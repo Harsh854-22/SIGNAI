@@ -1,10 +1,8 @@
-flask==2.0.1
-flask-socketio==5.1.1
+Flask
+Flask-SocketIO
 opencv-python-headless
 mediapipe
 numpy<2.0
-python-engineio==4.2.1
-python-socketio==5.4.0
 gunicorn
-Werkzeug==2.0.3
-eventlet
+gevent
+gevent-websocket

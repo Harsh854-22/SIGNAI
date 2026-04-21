@@ -4,8 +4,8 @@ import os
 port = os.environ.get('PORT', '5000')
 bind = f'0.0.0.0:{port}'
 
-# Use the eventlet worker class required by Flask-SocketIO
-worker_class = 'eventlet'
+# Use the gevent worker class required by Flask-SocketIO on newer Pythons
+worker_class = 'geventwebsocket.gunicorn.workers.GeventWebSocketWorker'
 
 # Ensure a single worker for WebSocket consistency
 workers = 1

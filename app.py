@@ -8,8 +8,8 @@ is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "") or \
               any("gunicorn" in arg for arg in sys.argv)
 
 if not is_gunicorn:
-    import eventlet
-    eventlet.monkey_patch()
+    from gevent import monkey
+    monkey.patch_all()
 
 import socket
 # Import the expanded phrases
@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 # Initialize Flask app
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.config['SECRET_KEY'] = 'signai_secret_key'
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
 
 # Initialize MediaPipe solutions
 mp_hands = mp.solutions.hands
