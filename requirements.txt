@@ -1,6 +1,6 @@
 flask==2.0.1
 flask-socketio==5.1.1
-opencv-python
+opencv-python-headless
 mediapipe
 numpy==1.23
 python-engineio==4.2.1

@@ -745,12 +745,16 @@ def find_available_port(start_port=5000, max_attempts=10):
     raise RuntimeError(f"Could not find available port after {max_attempts} attempts")
 
 if __name__ == '__main__':
-    port = find_available_port()
+    port_env = os.environ.get('PORT')
+    if port_env:
+        port = int(port_env)
+    else:
+        port = find_available_port()
     print(f"Starting server on port {port}")
     
     try:
         with app.app_context():
-            socketio.run(app, host='0.0.0.0', port=port, debug=True)
+            socketio.run(app, host='0.0.0.0', port=port, debug=False)
     except Exception as e:
         print(f"Server error: {e}")
     finally:
