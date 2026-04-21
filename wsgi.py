@@ -1,5 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
 from app import app, socketio
 
 # Expose the Flask application as the WSGI callable
