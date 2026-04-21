@@ -1,5 +1,16 @@
-import eventlet
-eventlet.monkey_patch()
+import sys
+import os
+
+# Only monkey patch if not running under gunicorn.
+# Gunicorn's eventlet worker handles monkey patching automatically before imports.
+is_gunicorn = "gunicorn" in os.environ.get("SERVER_SOFTWARE", "") or \
+              "gunicorn" in sys.modules or \
+              any("gunicorn" in arg for arg in sys.argv)
+
+if not is_gunicorn:
+    import eventlet
+    eventlet.monkey_patch()
+
 import socket
 # Import the expanded phrases
 from asl_phrases import asl_phrases, phrase_complexity
